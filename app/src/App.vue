@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue"
+import { ref } from "vue"
 import { motion } from "motion-v"
 import { CalendarClock, Phone } from "lucide-vue-next"
 import AppointmentScheduler from "@/components/scheduler/AppointmentScheduler.vue"
@@ -16,8 +16,7 @@ type Booking = {
   slot: string
 }
 
-const theme = provideTheme("dark")
-const isLight = computed(() => theme.value === "light")
+provideTheme("light")
 
 const open = ref(false)
 const confirmedOpen = ref(false)

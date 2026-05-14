@@ -7,8 +7,8 @@ import { useThemeFlags } from "@/lib/theme"
 import { slotsForDate, type Slot } from "@/lib/availability"
 
 const props = defineProps<{
-  startDate: CalendarDate
-  focusDate: CalendarDate
+  startDate: any
+  focusDate: any
   daysToShow?: number
   selected: { date: string; slot: string } | null
 }>()
@@ -63,9 +63,9 @@ const scrollContainer = ref<HTMLElement | null>(null)
 const dayRefs = ref<Record<string, HTMLElement | null>>({})
 
 function setDayRef(key: string) {
-  return (el: Element | null) => {
+  return ((el: any) => {
     dayRefs.value[key] = el as HTMLElement | null
-  }
+  }) as any
 }
 
 watch(

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { motion, AnimatePresence } from "motion-v"
-import { CheckCircle2, Clock, X, Wrench, MapPin, ArrowRight } from "lucide-vue-next"
+import { CheckCircle2, Clock, X, Wrench, MapPin, ArrowRight, Moon } from "lucide-vue-next"
 import { useEventListener } from "@vueuse/core"
-import { useThemeFlags } from "@/lib/theme"
+import { useTheme, useThemeFlags } from "@/lib/theme"
 
 const props = defineProps<{
   open: boolean
@@ -20,6 +20,11 @@ const emit = defineEmits<{
 }>()
 
 const { isLight } = useThemeFlags()
+const theme = useTheme()
+
+function switchToDark() {
+  theme.value = "dark"
+}
 
 const serviceLabels: Record<string, string> = {
   repairs: "Garage Door & Open Repairs",
@@ -481,6 +486,27 @@ useEventListener("keydown", (e: KeyboardEvent) => {
               </span>
             </div>
           </motion.div>
+
+          <!-- Dark mode suggestion (only in light mode) -->
+          <motion.button
+            v-if="isLight"
+            type="button"
+            :initial="{ opacity: 0, y: 8 }"
+            :animate="{ opacity: 1, y: 0 }"
+            :transition="{ delay: 0.55, duration: 0.45 }"
+            :while-hover="{ y: -1 }"
+            class="w-full inline-flex items-center justify-center gap-2 rounded-[12px] px-4 py-2.5 text-[12px] text-[#0d2e22]/65 hover:text-[#0d2e22] hover:bg-black/[0.03] transition-colors group"
+            @click="switchToDark"
+          >
+            <Moon class="size-3.5 text-brand-green group-hover:rotate-[-12deg] transition-transform" stroke-width="2.4" />
+            <span>
+              See how the modal works in
+              <span class="font-semibold text-brand-green underline decoration-dotted underline-offset-2">
+                dark mode
+              </span>
+              as well
+            </span>
+          </motion.button>
         </div>
       </motion.div>
     </motion.div>

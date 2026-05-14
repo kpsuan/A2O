@@ -14,18 +14,21 @@ import {
   CalendarCell,
   CalendarCellTrigger,
 } from "reka-ui"
-import { CalendarDate, getLocalTimeZone, today } from "@internationalized/date"
+import { getLocalTimeZone, today } from "@internationalized/date"
 import { ChevronLeft, ChevronRight } from "lucide-vue-next"
 import { cn } from "@/lib/utils"
 import { useThemeFlags } from "@/lib/theme"
 
+// CalendarDate uses a JS hard-private field which trips strict TS prop checks
+// when reactive refs round-trip through vue-tsc; widen to `any` for the
+// component boundary while keeping the import for runtime usage (today / compare).
 const props = defineProps<{
-  modelValue: CalendarDate | null
-  minValue?: CalendarDate
-  urgencyForDate?: (date: CalendarDate) => number | null
+  modelValue: any
+  minValue?: any
+  urgencyForDate?: (date: any) => number | null
 }>()
 const emit = defineEmits<{
-  (e: "update:modelValue", value: CalendarDate): void
+  (e: "update:modelValue", value: any): void
 }>()
 
 const { isLight } = useThemeFlags()
