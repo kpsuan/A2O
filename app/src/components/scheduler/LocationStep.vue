@@ -173,7 +173,7 @@ function find() {
             isLight ? 'text-brand-green' : 'text-brand-mint',
           ]"
         >
-          Great — our {{ matchedBranch.name }} branch is near you.
+          Great — we service that area and have a branch near you. Pick a time next.
         </p>
         <div
           :class="[
