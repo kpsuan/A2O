@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #00523d;
+  --color-brand-green-deep: #003b2c;
+  --color-brand-green-ink: #001b0c;
+  --color-brand-mint: #56ffa3;
+  --color-brand-mint-soft: #4dbb7d;
+  --color-brand-cream: #ffefef;
+  --font-display: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@layer base {
+  html,
+  body,
+  #app {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: radial-gradient(circle at top, #0a1f17 0%, #03100a 60%, #000 100%);
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  *::-webkit-scrollbar { width: 10px; height: 10px; }
+  *::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 8px; }
+  *::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
+}
+
+@layer utilities {
+  .ring-soft-glow {
+    box-shadow:
+      0 0 0 1px rgba(86, 255, 163, 0.6),
+      0 0 22px rgba(86, 255, 163, 0.35),
+      0 18px 40px rgba(0, 0, 0, 0.35);
+  }
+  .card-shadow {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 18px 40px rgba(0, 0, 0, 0.35);
+  }
+  .dashed-track {
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.5) 0 6px,
+      transparent 6px 12px
+    );
+    background-size: 12px 1.5px;
+    background-repeat: repeat-x;
+    background-position: center;
+  }
+}
