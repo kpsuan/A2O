@@ -5,6 +5,18 @@ A review of the original Precision Garage Door scheduler against the redesigned
 flow, with a summary of UX/CRO issues found, design changes made, implementation
 notes, and assumptions / limitations.
 
+## Executive Summary
+
+The original scheduler asked users to make three decisions (service, location, and time) across only two pages, with no visible progress indicator and a small "Only takes 3 minutes!" tagline as the only orientation cue. The zip-code input was buried in the footer of Step 1 with no validation, no explanation of why a zip was needed, and no recovery path for unserviceable areas. The date-and-time step then dumped every day and every slot into one large grid: and there was no scarcity, urgency, or trust signal anywhere in the flow.
+
+The redesign addresses these issues directly. I rebuilt it around one idea: one decision per screen. Service, then location, then time, each step earns its own page, and a stepper plus progress bar means you always know where you are and how much is left.
+
+The zip step grew up. It's a full screen with real-time validation — idle, checking, success, error, all visible. If your area isn't served, you get a graceful "try a different zip" instead of a dead end, and a phone CTA sits there the whole time for anyone who'd rather just call.
+
+The date-time step finally pulls its weight. The calendar is wired up: tap a day, the slots panel scrolls to it. Sunrise/sun/sunset icons on every pill let you scan morning vs. afternoon without parsing AM/PM. And we surface scarcity in two places — a small amber number on calendar days showing how many slots remain, and a cream "Only X spots left" pill on the day header — so urgency is a feature, not a guess.
+
+Trust signals (4.9★, 12,000+ homeowners, licensed, insured, warrantied, background-checked) live in the header band so they're with you at every step, not just on the landing page where commitment hasn't been asked for yet. The whole thing works in light and dark mode, scales to phone, and the calendar pins itself to the top of its container on mobile so you never lose the month header to a scroll bug.
+
 ---
 
 ## 1. UX / CRO issues identified in the original
@@ -33,9 +45,9 @@ notes, and assumptions / limitations.
 - Service selection is now **toggle**-able (click the selected card again to deselect) instead of locked-in.
 
 ### Service cards (Step 1)
-- Full-bleed image with title overlay, drop-shadow, and a **prominent check badge in the top-right** on selection (replaces tiny radio dot).
+- Full-bleed image with title overlay, drop-shadow, and a **prominent check badge in the top-right** on selection 
 - Unselected cards dim to 30% opacity + grayscale **only after another card is selected** — preserving discoverability on first view.
-- **Card photography replaced** — the original site's service images were low-resolution and inconsistently lit (especially the New Garage Door and Opener tiles, which read as flat product shots). Swapped for higher-resolution, on-brand photography with consistent framing, lighting, and aspect ratio so the three cards read as a deliberate set rather than scraped marketing assets.
+- **Card photography replaced** — the original site's service images were low-resolution and inconsistently lit. Swapped for higher-resolution, on-brand photography with consistent framing, lighting, and aspect ratio
 - Added a **trust-badge row** beneath the cards: *Licensed & insured · 5-year warranty · No charge to book · Background-checked techs*.
 
 ### Location (Step 2 — new dedicated step)
@@ -83,10 +95,9 @@ notes, and assumptions / limitations.
 - **Booking ID is a deterministic client-side hash** of the booking payload — production would use a server-issued reservation ID.
 - **Slot inventory** is fixed (2-hour windows, 0–4 per day). A real integration would come from the dispatch / FSM system.
 - **"Only X spots left"** triggers when ≤ 2 mocked slots remain — the threshold and copy are demonstrative, not tuned against real data.
-- **Phone numbers in the demo** (`555-123-4567`, `877-301-7474`) are placeholders and should be unified before launch.
-- **Locale is hard-coded to `en-US`** — weekday/month formatting, AM/PM, dollar-style mental model. No i18n layer yet.
+- **Phone numbers in the demo** (`555-123-4567`, `877-301-7474`) are placeholders 
+- **Locale is hard-coded to `en-US`** — weekday/month formatting, AM/PM, dollar-style mental model.
 - **No payment / deposit step** — assumes the "No charge to book" trust badge is accurate.
 - **No SMS/email side-effects** — the "we'll text you a reminder" copy is aspirational; needs a notification service.
 - **Theme preference isn't persisted** — refreshes back to dark default. A `localStorage` hook is a one-line change.
 - **Accessibility tested via keyboard + screen reader spot-checks** but not against a full WCAG 2.2 AA audit.
-- **Browser support**: targets evergreen (uses CSS `aspect-ratio`, `backdrop-filter`, modern flex/grid). No IE11 fallback considered.
