@@ -24,17 +24,13 @@ Trust signals (4.9★, 12,000+ homeowners, licensed, insured, warrantied, backgr
 | # | Issue | Why it hurts conversion |
 |---|---|---|
 | 1 | **No step progress** — three jobs (service, zip, time) crammed onto two pages with only an "Only takes 3 minutes!" tagline | Users can't see how far along they are; abandonment rises when "how much more?" is unclear |
-| 2 | **Service cards desaturated to greyscale on hover/unselected** | Reads as "disabled/broken" rather than "not selected"; punishes exploration |
-| 3 | **Empty radio circles in the top-left corner** of each card | Tiny target, unclear affordance — the whole card is clickable but the radio implies only the dot is |
-| 4 | **Zip code input is buried in the footer of Step 1**, sharing the bar with `Next` | Easy to miss; no explanation for *why* zip is required; no error or success states visible |
-| 5 | **Step 2 shows every day × every slot in one giant grid** | High cognitive load, no scarcity signal, no time-of-day affordance — all 8 AM–10 AM pills look identical to 2 PM–4 PM pills |
-| 6 | **Calendar is decorative** — clicking a date doesn't filter or reflect anywhere | Wastes screen real estate; user assumes it should *do* something |
-| 7 | **No trust signals inside the booking flow** (rating, warranty, license, background checks) | Misses a chance to reduce friction at the exact moment commitment is being asked for |
-| 8 | **No phone fallback inside the modal** | Users who hit a snag (out-of-area zip, unfamiliar with online booking) bounce out instead of converting via phone |
-| 9 | **No clear error state** for an unserviceable zip | The site presumably 404s or redirects; no graceful "we don't cover that area, try a different zip" recovery |
-| 10 | **No post-booking summary / receipt** | Confirmation is a single line; the user has no "ticket" to reference later |
-| 11 | **No urgency / scarcity** anywhere in the flow | Free CRO lever left on the table for a high-trust, low-frequency service |
-| 12 | **Theme is fixed** (light only) and contrast is moderate | A subset of users prefer dark, and the bright body section after a dark header creates a visual jolt |
+| 2 | **Zip code input is buried in the footer of Step 1**, sharing the bar with `Next` | Easy to miss; no explanation for *why* zip is required; no error or success states visible |
+| 3 | **Step 2 shows every day × every slot in one giant grid** | High cognitive load, no scarcity signal, no time-of-day affordance — all 8 AM–10 AM pills look identical to 2 PM–4 PM pills |
+| 4 | **No trust signals inside the booking flow** (rating, warranty, license, background checks) | Misses a chance to reduce friction at the exact moment commitment is being asked for |
+| 5 | **No phone fallback inside the modal** | Users who hit a snag (out-of-area zip, unfamiliar with online booking) bounce out instead of converting via phone |
+| 6 | **No clear error state** for an unserviceable zip | The site presumably 404s or redirects; no graceful "we don't cover that area, try a different zip" recovery |
+| 7 | **No urgency / scarcity** anywhere in the flow | Free CRO lever left on the table for a high-trust, low-frequency service |
+| 8 | **Theme is fixed** (light only) and contrast is moderate | A subset of users prefer dark, and the bright body section after a dark header creates a visual jolt |
 
 ---
 
