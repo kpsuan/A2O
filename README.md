@@ -5,7 +5,7 @@ A review of the original Precision Garage Door scheduler against the redesigned
 flow, with a summary of UX/CRO issues found, design changes made, implementation
 notes, and assumptions / limitations.
 
-## Executive Summary
+## Summary
 
 The original scheduler asked users to make three decisions (service, location, and time) across only two pages, with no visible progress indicator and a small "Only takes 3 minutes!" tagline as the only orientation cue. The zip-code input was buried in the footer of Step 1 with no validation, no explanation of why a zip was needed, and no recovery path for unserviceable areas. The date-and-time step then dumped every day and every slot into one large grid: and there was no scarcity, urgency, or trust signal anywhere in the flow.
 
