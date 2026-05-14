@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from "vue"
 import { motion } from "motion-v"
-import { ChevronRight, Phone, Check, Loader2, X, AlertCircle } from "lucide-vue-next"
+import { ChevronRight, Phone, Check, Loader2, X, AlertCircle, MapPin } from "lucide-vue-next"
 import { useThemeFlags } from "@/lib/theme"
 
 const props = defineProps<{ modelValue: string }>()
@@ -23,6 +23,22 @@ watch(status, (s) => emit("update:valid", s === "ok"))
 
 const valid = computed(() => /^\d{5}$/.test(local.value.trim()))
 
+const branches = [
+  { name: "Northgate", address: "4120 Stonebrook Ave" },
+  { name: "Lakeshore", address: "812 Harbor Pointe Dr" },
+  { name: "Midtown", address: "207 W Cedar St, Ste 4" },
+  { name: "Westview", address: "9355 Ridgeline Blvd" },
+  { name: "Riverside", address: "560 Old Mill Rd" },
+  { name: "Highland Park", address: "1428 Summit Crossing" },
+]
+
+const matchedBranch = ref<(typeof branches)[number] | null>(null)
+
+function pickBranch(zip: string) {
+  const sum = zip.split("").reduce((acc, c) => acc + Number(c), 0)
+  return branches[sum % branches.length]
+}
+
 function onInput(e: Event) {
   const raw = (e.target as HTMLInputElement).value.replace(/\D/g, "").slice(0, 5)
   local.value = raw
@@ -36,7 +52,13 @@ function find() {
   status.value = "checking"
   setTimeout(() => {
     // Mock: "00000" simulates an unserviceable area.
-    status.value = local.value === "00000" ? "error" : "ok"
+    if (local.value === "00000") {
+      matchedBranch.value = null
+      status.value = "error"
+    } else {
+      matchedBranch.value = pickBranch(local.value)
+      status.value = "ok"
+    }
   }, 900)
 }
 </script>
@@ -140,16 +162,55 @@ function find() {
       leave-to-class="opacity-0"
       mode="out-in"
     >
-      <p
-        v-if="status === 'ok'"
+      <div
+        v-if="status === 'ok' && matchedBranch"
         key="ok"
-        :class="[
-          'text-[17px] font-semibold font-display tracking-[-0.01em]',
-          isLight ? 'text-brand-green' : 'text-brand-mint',
-        ]"
+        class="w-full max-w-[560px] flex flex-col items-center gap-3"
       >
-        Great — we service that area. Pick a time next.
-      </p>
+        <p
+          :class="[
+            'text-[17px] sm:text-[19px] font-semibold font-display tracking-[-0.01em] text-center',
+            isLight ? 'text-brand-green' : 'text-brand-mint',
+          ]"
+        >
+          Great — our {{ matchedBranch.name }} branch is near you.
+        </p>
+        <div
+          :class="[
+            'w-full rounded-[14px] px-4 py-3.5 flex items-center gap-3.5',
+            isLight
+              ? 'bg-white border border-black/10 shadow-[0_2px_10px_-4px_rgba(13,46,34,0.12)]'
+              : 'bg-white/[0.06] border border-white/15 backdrop-blur',
+          ]"
+        >
+          <span
+            :class="[
+              'grid place-items-center size-10 rounded-full shrink-0',
+              isLight ? 'bg-[#f1f4f2] text-[#0d2e22]' : 'bg-white/10 text-white',
+            ]"
+          >
+            <MapPin class="size-5" stroke-width="2.25" />
+          </span>
+          <div class="flex-1 min-w-0">
+            <div
+              :class="[
+                'font-display font-semibold text-[15px] leading-tight tracking-[-0.01em]',
+                isLight ? 'text-[#0d2e22]' : 'text-white',
+              ]"
+            >
+              Precision · {{ matchedBranch.name }}
+            </div>
+            <div
+              :class="[
+                'text-[13px] truncate',
+                isLight ? 'text-[#0d2e22]/65' : 'text-white/65',
+              ]"
+            >
+              {{ matchedBranch.address }}
+            </div>
+          </div>
+        </div>
+      </div>
       <p
         v-else-if="status === 'error'"
         key="err"
