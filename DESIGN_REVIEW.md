@@ -6,6 +6,20 @@ notes, and assumptions / limitations.
 
 ---
 
+## Executive Summary
+
+The original scheduler asked users to make three decisions (service, location, and time) across only two pages, with no visible progress indicator and a small "Only takes 3 minutes!" tagline as the only orientation cue. The zip-code input was buried in the footer of Step 1 with no validation, no explanation of why a zip was needed, and no recovery path for unserviceable areas. The date-and-time step then dumped every day and every slot into one large grid: and there was no scarcity, urgency, or trust signal anywhere in the flow.
+
+The redesign addresses these issues directly. I rebuilt it around one idea: one decision per screen. Service, then location, then time, each step earns its own page, and a stepper plus progress bar means you always know where you are and how much is left.
+
+The zip step grew up. It's a full screen with real-time validation — idle, checking, success, error, all visible. If your area isn't served, you get a graceful "try a different zip" instead of a dead end, and a phone CTA sits there the whole time for anyone who'd rather just call.
+
+The date-time step finally pulls its weight. The calendar is wired up: tap a day, the slots panel scrolls to it. Sunrise/sun/sunset icons on every pill let you scan morning vs. afternoon without parsing AM/PM. And we surface scarcity in two places — a small amber number on calendar days showing how many slots remain, and a cream "Only X spots left" pill on the day header — so urgency is a feature, not a guess.
+
+Trust signals (4.9★, 12,000+ homeowners, licensed, insured, warrantied, background-checked) live in the header band so they're with you at every step, not just on the landing page where commitment hasn't been asked for yet. The whole thing works in light and dark mode, scales to phone, and the calendar pins itself to the top of its container on mobile so you never lose the month header to a scroll bug.
+
+---
+
 ## 1. UX / CRO issues identified in the original
 
 | # | Issue | Why it hurts conversion |
